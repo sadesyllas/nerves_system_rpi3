@@ -47,6 +47,22 @@ using the wired Ethernet interface 'eth0' and DHCP.
 The base image includes drivers for the onboard Raspberry Pi 3 wifi module
 (`brcmfmac` driver).
 
+## Provisioning
+
+This system supports storing provisioning information in a small key-value store
+outside of any filesystem. The KV store may be queried using
+[`Nerves.Runtime.KV.get/1`](https://hexdocs.pm/nerves_runtime/Nerves.Runtime.KV.html#get/1).
+
+Keys used by this system are:
+
+Key             | Example Value     | Description
+:-------------- | :---------------- | :----------
+`serial_number` | "1234578"`        | By default, this string is used to create unique hostnames and Erlang node names. If unset, it defaults to part of the Raspberry Pi's device ID.
+
+It is expected that these keys are set once in manufacturing or device
+provisioning and then left alone. To set a key on the device run the `fw_setenv`
+command.
+
 ## Linux kernel and RPi firmware/userland
 
 There's a subtle coupling between the `nerves_system_br` version and the Linux
